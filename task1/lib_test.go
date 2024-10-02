@@ -12,14 +12,14 @@ func TestMapLibrary(t *testing.T) {
 	mapStorage := storage.NewMapStorage()
 	lib := library.NewLibrary(mapStorage)
 
-	justBook := Book{Title: "Just Book"}
-	simpleBook := Book{Title: "Simple Book"}
-	normalBook := Book{Title: "Normal Book"}
-	hardBook := Book{Title: "Hard Book"}
-	specialBook := Book{Title: "Special Book"}
-	expensiveBook := Book{Title: "Expensive Book", Content: "?"}
-	goodBook := Book{Title: "Good Book"}
-	wonderfulBook := Book{Title: "Wonderful Book"}
+	justBook := *NewBook("Just Book", "", "")
+	simpleBook := *NewBook("Simple Book", "", "")
+	normalBook := *NewBook("Normal Book", "", "")
+	hardBook := *NewBook("Hard Book", "", "")
+	specialBook := *NewBook("Special Book", "", "")
+	expensiveBook := *NewBook("Expensive Book", "?", "")
+	goodBook := *NewBook("Good Book", "", "")
+	wonderfulBook := *NewBook("Wonderful Book", "", "")
 
 	lib.Add(justBook)
 	lib.Add(simpleBook)
@@ -74,14 +74,14 @@ func TestSliceLibrary(t *testing.T) {
 	sliceStorage := storage.NewSliceStorage()
 	lib := library.NewLibrary(sliceStorage)
 
-	boringBook := Book{Title: "Boring Book"}
-	stupidBook := Book{Title: "Stupid Book"}
-	fastBook := Book{Title: "Fast Book"}
-	shortBook := Book{Title: "Short Book"}
-	beautifulBook := Book{Title: "Beautiful Book"}
-	crashedBook := Book{Title: "Crashed Book"}
-	longBook := Book{Title: "Long Book"}
-	loveBook := Book{Title: "Love Book", Content: "<3"}
+	boringBook := *NewBook("Boring Book", "", "")
+	stupidBook := *NewBook("Stupid Book", "", "")
+	fastBook := *NewBook("Fast Book", "", "")
+	shortBook := *NewBook("Short Book", "", "")
+	beautifulBook := *NewBook("Beautiful Book", "", "")
+	crashedBook := *NewBook("Crashed Book", "", "")
+	longBook := *NewBook("Long Book", "", "")
+	loveBook := *NewBook("Love Book", "<3", "")
 
 	lib.Add(boringBook)
 	lib.Add(stupidBook)
