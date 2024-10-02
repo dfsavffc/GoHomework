@@ -1,9 +1,9 @@
 package main
 
 import (
-	. "GoHomework/book"
-	"GoHomework/library"
-	"GoHomework/storage"
+	. "GoHomework/task1/book"
+	"GoHomework/task1/library"
+	storage2 "GoHomework/task1/storage"
 	"math"
 )
 
@@ -20,8 +20,8 @@ func main() {
 	dBook := Book{Title: "dddddddddd", Content: "ddddddd", Length: 14}
 	eBook := Book{Title: "eeeeeeeeeeeeee", Content: "eeeeeeeeeeeeee", Length: 15}
 
-	mapStorage := storage.NewMapStorage()
-	sliceStorage := storage.NewSliceStorage()
+	mapStorage := storage2.NewMapStorage()
+	sliceStorage := storage2.NewSliceStorage()
 
 	lib := library.NewLibrary(mapStorage, LenGenerator)
 	lib.SetIdGenerator(LenGenerator)

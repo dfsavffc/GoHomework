@@ -1,8 +1,8 @@
 package library
 
 import (
-	. "GoHomework/book"
-	"GoHomework/storage"
+	. "GoHomework/task1/book"
+	"GoHomework/task1/storage"
 )
 
 type ReLoader interface {

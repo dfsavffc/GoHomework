@@ -1,7 +1,7 @@
 package storage
 
 import (
-	. "GoHomework/book"
+	. "GoHomework/task1/book"
 )
 
 type IdGenerator func(string) int
