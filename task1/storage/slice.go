@@ -12,38 +12,33 @@ func NewSliceStorage() *SliceStorage {
 	return &SliceStorage{data: make([]Book, 0)}
 }
 
-func (storage *SliceStorage) Add(book Book, id int) {
-	if id >= len(storage.data) {
-		newData := make([]Book, id+1)
-		copy(newData, storage.data)
-		storage.data = newData
-	}
-	storage.data[id] = book
+func (storage *SliceStorage) Add(book Book) {
+	storage.data = append(storage.data, book)
 }
 
-func (storage *SliceStorage) Remove(id int) bool {
-	if id < len(storage.data) {
-		storage.data[id] = Book{} // Заменяем на пустую книгу
-		return true
-	}
-	return false
-}
-
-func (storage *SliceStorage) Get(id int) (Book, bool) {
-	if id < len(storage.data) {
-		return storage.data[id], true
+func (storage *SliceStorage) Get(id uint64) (Book, bool) {
+	for _, book := range storage.data {
+		if book.ID() == id {
+			return book, true
+		}
 	}
 	return Book{}, false
+}
+
+func (storage *SliceStorage) Remove(id uint64) bool {
+	for i, book := range storage.data {
+		if book.ID() == id {
+			storage.data = append(storage.data[:i], storage.data[i+1:]...)
+			return true
+		}
+	}
+	return false
 }
 
 func (storage *SliceStorage) Size() int {
 	return len(storage.data)
 }
 
-func (storage *SliceStorage) GetAll() []Book {
+func (storage *SliceStorage) GetData() []Book {
 	return storage.data
-}
-
-func (storage *SliceStorage) Clear() {
-	storage.data = make([]Book, 0)
 }

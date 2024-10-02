@@ -2,14 +2,24 @@ package book
 
 type Book struct {
 	Title   string
+	Author  string
 	Content string
-	Length  int
+	id      *uint64
 }
 
-func NewBook(title, content string, length int) *Book {
+func NewBook(title, content string, author string) *Book {
 	return &Book{
 		Title:   title,
 		Content: content,
-		Length:  length,
+		Author:  author,
+		id:      nil,
 	}
+}
+
+func (book *Book) ID() uint64 {
+	return *book.id
+}
+
+func (book *Book) SetID(id uint64) {
+	book.id = &id
 }

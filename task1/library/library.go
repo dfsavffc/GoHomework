@@ -2,55 +2,45 @@ package library
 
 import (
 	. "GoHomework/task1/book"
+	"GoHomework/task1/identification"
 	"GoHomework/task1/storage"
 )
 
-type ReLoader interface {
-	Reload()
-}
-
-type ModelLib interface {
-	Size() int
-	Get(string) (Book, bool)
-	Add(book Book)
-	Remove(string) bool
-	Id(string) int
-}
 type Library struct {
 	storage     storage.ModelStorage
-	IdGenerator storage.IdGenerator
+	IdGenerator identification.Generator
 }
 
-func (lib *Library) SetIdGenerator(generator storage.IdGenerator) {
+func NewLibrary(storage storage.ModelStorage) *Library {
+	return &Library{storage: storage, IdGenerator: identification.DefaultGenerator()}
+}
+
+func (lib *Library) SetIdGenerator(generator identification.Generator) {
 	lib.IdGenerator = generator
-	lib.Reload()
-}
-
-func NewLibrary(storage storage.ModelStorage, generator storage.IdGenerator) *Library {
-	return &Library{storage: storage, IdGenerator: generator}
-}
-
-func (lib *Library) Reload() {
-	data := lib.storage.GetAll()
-	lib.storage.Clear()
-	for _, book := range data {
-		id := lib.IdGenerator(book.Title)
-		lib.storage.Add(book, id)
-	}
 }
 
 func (lib *Library) Size() int {
 	return lib.storage.Size()
 }
+
 func (lib *Library) Get(title string) (Book, bool) {
-	id := lib.IdGenerator(title)
-	return lib.storage.Get(id)
+	for _, book := range lib.storage.GetData() {
+		if book.Title == title {
+			return book, true
+		}
+	}
+	return Book{}, false
 }
+
 func (lib *Library) Add(book Book) {
-	id := lib.IdGenerator(book.Title)
-	lib.storage.Add(book, id)
+	id := lib.IdGenerator()
+	book.SetID(id)
+	lib.storage.Add(book)
 }
-func (lib *Library) Remove(title string) bool {
-	id := lib.IdGenerator(title)
-	return lib.storage.Remove(id)
+
+func (lib *Library) Remove(id uint64) bool {
+	if lib.storage.Remove(id) {
+		return true
+	}
+	return false
 }

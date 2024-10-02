@@ -5,34 +5,28 @@ import (
 )
 
 type MapStorage struct {
-	data map[int]Book
+	data map[uint64]Book
 }
 
 func NewMapStorage() *MapStorage {
-	return &MapStorage{data: make(map[int]Book)}
-}
-
-func (storage *MapStorage) Clear() {
-	storage.data = make(map[int]Book)
-}
-
-func (storage *MapStorage) GetAll() []Book {
-	data := make([]Book, 0, len(storage.data))
-	for _, b := range storage.data {
-		data = append(data, b)
-	}
-	return data
+	return &MapStorage{data: make(map[uint64]Book)}
 }
 
 func (storage *MapStorage) Size() int {
 	return len(storage.data)
 }
 
-func (storage *MapStorage) Add(book Book, id int) {
+func (storage *MapStorage) Add(book Book) {
+	id := book.ID()
 	storage.data[id] = book
 }
 
-func (storage *MapStorage) Remove(id int) bool {
+func (storage *MapStorage) Get(id uint64) (Book, bool) {
+	book, ok := storage.data[id]
+	return book, ok
+}
+
+func (storage *MapStorage) Remove(id uint64) bool {
 	if _, ok := storage.data[id]; ok {
 		delete(storage.data, id)
 		return true
@@ -40,7 +34,10 @@ func (storage *MapStorage) Remove(id int) bool {
 	return false
 }
 
-func (storage *MapStorage) Get(id int) (Book, bool) {
-	b, ok := storage.data[id]
-	return b, ok
+func (storage *MapStorage) GetData() []Book {
+	data := make([]Book, 0, len(storage.data))
+	for _, book := range storage.data {
+		data = append(data, book)
+	}
+	return data
 }
