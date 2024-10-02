@@ -10,4 +10,5 @@ type ModelStorage interface {
 	Get(uint64) (Book, bool)
 	Size() int
 	GetData() []Book
+	Clear()
 }

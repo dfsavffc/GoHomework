@@ -42,3 +42,7 @@ func (storage *SliceStorage) Size() int {
 func (storage *SliceStorage) GetData() []Book {
 	return storage.data
 }
+
+func (storage *SliceStorage) Clear() {
+	storage.data = make([]Book, 0)
+}

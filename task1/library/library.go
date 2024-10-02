@@ -15,6 +15,14 @@ func NewLibrary(storage storage.ModelStorage) *Library {
 	return &Library{storage: storage, IdGenerator: identification.DefaultGenerator()}
 }
 
+func (lib *Library) ReIdentification() {
+	data := lib.storage.GetData()
+	lib.storage.Clear()
+	for _, book := range data {
+		lib.Add(book)
+	}
+}
+
 func (lib *Library) SetIdGenerator(generator identification.Generator) {
 	lib.IdGenerator = generator
 }

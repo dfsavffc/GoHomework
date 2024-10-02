@@ -41,3 +41,6 @@ func (storage *MapStorage) GetData() []Book {
 	}
 	return data
 }
+func (storage *MapStorage) Clear() {
+	storage.data = make(map[uint64]Book)
+}
