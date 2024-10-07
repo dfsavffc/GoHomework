@@ -1,48 +1,50 @@
 package storage
 
 import (
-	. "GoHomework/task1/book"
+	"GoHomework/task1/book"
+	"errors"
+	"fmt"
 )
 
 type SliceStorage struct {
-	data []Book
+	data []book.Book
 }
 
 func NewSliceStorage() *SliceStorage {
-	return &SliceStorage{data: make([]Book, 0)}
+	return &SliceStorage{data: make([]book.Book, 0)}
 }
 
-func (storage *SliceStorage) Add(book Book) {
+func (storage *SliceStorage) Add(book book.Book) {
 	storage.data = append(storage.data, book)
 }
 
-func (storage *SliceStorage) Get(id uint64) (Book, bool) {
-	for _, book := range storage.data {
-		if book.ID() == id {
-			return book, true
+func (storage *SliceStorage) Get(id uint64) (book.Book, error) {
+	for _, elem := range storage.data {
+		if elem.ID() == id {
+			return elem, nil
 		}
 	}
-	return Book{}, false
+	return book.Book{}, errors.New(fmt.Sprintf("id:%d not exist", id))
 }
 
-func (storage *SliceStorage) Remove(id uint64) bool {
-	for i, book := range storage.data {
-		if book.ID() == id {
+func (storage *SliceStorage) Remove(id uint64) error {
+	for i, elem := range storage.data {
+		if elem.ID() == id {
 			storage.data = append(storage.data[:i], storage.data[i+1:]...)
-			return true
+			return nil
 		}
 	}
-	return false
+	return errors.New(fmt.Sprintf("id:%d not exist", id))
 }
 
 func (storage *SliceStorage) Size() int {
 	return len(storage.data)
 }
 
-func (storage *SliceStorage) GetData() []Book {
+func (storage *SliceStorage) GetData() []book.Book {
 	return storage.data
 }
 
 func (storage *SliceStorage) Clear() {
-	storage.data = make([]Book, 0)
+	storage.data = make([]book.Book, 0)
 }
