@@ -17,7 +17,7 @@ func main() {
 	}
 	fmt.Println(version)
 
-	encodedData := "Q2ZGdmFTRGghc2prbFl1ZD8="
+	encodedData := "0JrQsNC60LDRjy3RgtC+INC30LDQutC+0LTQuNGA0L7QstCw0L3QvdCw0Y8g0YHRgtGA0L7QutCw"
 	request := models.Request{Input: encodedData}
 	decodedData, err := client.PostDecode(request)
 	if err != nil {
