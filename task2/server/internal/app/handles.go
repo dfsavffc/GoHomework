@@ -58,12 +58,12 @@ func postDecode(w http.ResponseWriter, r *http.Request) {
 		log.Printf("postDecode unmarshal error: %v", err)
 		return
 	}
-	outputString, err := decoding.DecodeBase64(request.InputString)
+	outputString, err := decoding.DecodeBase64(request.Input)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		log.Printf("postDecode decode string error: %v", err)
 	}
-	response := models.Response{OutputString: outputString}
+	response := models.Response{Output: outputString}
 	responseBody, err := json.Marshal(response)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
