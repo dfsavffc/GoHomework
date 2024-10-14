@@ -25,7 +25,7 @@ func getVersion(w http.ResponseWriter, r *http.Request) {
 }
 func getHardOp(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		http.Error(w, http.StatusText(200), http.StatusMethodNotAllowed)
+		http.Error(w, http.StatusText(405), http.StatusMethodNotAllowed)
 		log.Printf("getHardOp method not allowed")
 		return
 	}
