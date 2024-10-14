@@ -1,1 +1,1 @@
-module GoHomework
+module github.com/dfsavffc/GoHomework
